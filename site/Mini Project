@@ -1,0 +1,40 @@
+from tkinter import *
+from tkinter import filedialog
+
+root=Tk()
+root.geometry("450x300")
+root.title("File Encryptor")
+
+def encrypt_file():
+    file=filedialog.askopenfile(mode='r', filetype=[('txt file','*.txt')])
+    if file is not None:
+        print(file)
+        file_name=file.name
+        print(file_name)
+        key=entry.get(1.0,END)
+        print(file_name,key)
+        fi=open(file_name,'rb')
+        Text=fi.read()
+        fi.close()
+        Text=bytearray(Text)
+        for index,values in enumerate(Text):
+            Text[index]=values^int(key)
+        fi=open(file_name,'wb')
+        fi.write(Text)
+        fi.close()     
+
+b1=Button(root,text="Encrypt", command=encrypt_file)
+b1.place(x=200,y=50)
+
+entry=Text(root,height=1,width=10)
+entry.place(x=180,y=120)
+
+l = Label(root, text = "Made by Arnav Singh")
+l.config(font =("Courier", 14))
+l.config(fg="red", bg="grey")
+
+root.config(bg="grey")
+
+l.pack()
+
+root.mainloop()
